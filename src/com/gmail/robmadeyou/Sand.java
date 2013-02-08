@@ -3,6 +3,11 @@ package com.gmail.robmadeyou;
 
 import static org.lwjgl.opengl.GL11.GL_POINTS;
 
+import java.text.DecimalFormat;
+
+import org.lwjgl.input.Mouse;
+import org.lwjgl.opengl.Display;
+
 import static org.lwjgl.opengl.GL11.glBegin;
 import static org.lwjgl.opengl.GL11.glEnd;
 import static org.lwjgl.opengl.GL11.glVertex2i;
@@ -22,6 +27,11 @@ public class Sand {
 		this.dX = 0;
 		this.dY = 0;
 		this.isMovingToMouse = false;
+	}
+	
+	public void setLocation(int x, int y){
+		this.x = x;
+		this.y = y;
 	}
 	
 	public int getX(){
@@ -77,15 +87,40 @@ public class Sand {
 			
 	}
 	public void onUpdate(){
+		draw();
 		if(isMovingToMouse){
-			x += dX;
-			y += dY;
-		}else{
-			dX = dX /= 1.01;
-			dY = dY /= 1.01;
+			double s = 3;
+			
+			double toX = 0;
+			double toY = 0;
+			
+			toX = x -(Mouse.getX());
+			toY = y - (Display.getHeight() -Mouse.getY());
+			
+			double tan = (float) Math.atan2(toX,toY);
+			
+			dX = -s*Math.sin(tan);
+			dY = -s*Math.cos(tan);
 			
 			x += dX;
 			y += dY;
+		}else{
+			x += dX;
+			y += dY;
+			
+			if(dX > 0){
+				dX -= 0.06;
+			}
+			if(dY > 0){
+				dY -= 0.06;
+			}
+			if(dX < 0){
+				dX += 0.06;
+			}
+			if(dY < 0){
+				dY += 0.06;
+			}
+		
 		}
 	}
 }

@@ -1,6 +1,7 @@
 package com.gmail.robmadeyou;
 
 import org.lwjgl.LWJGLException;
+import org.lwjgl.Sys;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 
@@ -22,11 +23,18 @@ import static org.lwjgl.opengl.GL11.glOrtho;
 
 public class Main {
 	
-	public static class Playor extends Player{
-		public Playor(int x, int y, int rotation) {
-			super(x, y, rotation);
-		}
-	}
+	private static long lastFrame;
+
+    private static long getTime() {
+        return (Sys.getTime() * 1000) / Sys.getTimerResolution();
+    }
+
+    private static int getDelta() {
+        long currentTime = getTime();
+        int delta = (int) (currentTime - lastFrame);
+        lastFrame = getTime();
+        return delta;
+    }
 	
 	public Main(){
 	
@@ -49,18 +57,23 @@ public class Main {
 	    glEnable(GL_BLEND);
 	    glBlendFunc(GL_SRC_ALPHA , GL_ONE_MINUS_SRC_ALPHA);
 		
-	    Playor newP = new Playor(200, 200, 0);
-	    
+	    WallList.loadAllLevels();
 		while(!Display.isCloseRequested()){
 			glClear(GL_COLOR_BUFFER_BIT);
 			
-			newP.draw();
+			SandList.addMoreSand(new SandList.particles(500, 50, "cyan"));
+			
+			onUpdate(getDelta());
 			Display.sync(60);
 			Display.update();
 		}
 		
 	}
-	
+	public static void onUpdate(int delta){
+		SandList.onUpdate(delta);
+		Player.onUpdate();
+		WallList.onUpdate();
+	}
 	
 	public static void main(String args[]){
 		new Main();

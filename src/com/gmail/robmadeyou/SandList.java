@@ -1,0 +1,75 @@
+package com.gmail.robmadeyou;
+
+import java.util.Random;
+
+public class SandList {
+	public static class particles extends Sand{
+		public particles(int x, int y, String color) {
+			super(x, y, color);
+		}
+	}
+	static int maxSand = 40;
+	static Sand[] s = new Sand[maxSand];
+	static boolean isPlayerMouseDown = false;
+	
+	public static void addMoreSand(particles p){
+		for(int i = 0; i < maxSand; i++){
+			if(s[i] == null){
+				s[i] = p;
+				break;
+			}
+		}
+	}
+	/*
+	 * Used in harder difficulties where when new level starts; instead of removing all the dots
+	 * and then placing them back on the screen they are all instead moved to the new location
+	 * 
+	 * This won't locate them to the specific spot, instead they will be moved
+	 * randomly in the spawn squares radius, yet still very close and not touching the walls!
+	 * 
+	 */
+	public static void placeNewLocation(int levelNum){
+		for(int i = 0; i < maxSand; i++){
+			if(WallList.wall[levelNum] != null){
+				int x = WallList.wall[levelNum][0].getX();
+				int y = WallList.wall[levelNum][0].getY();
+				int w = WallList.wall[levelNum][0].getWidth();
+				int h = WallList.wall[levelNum][0].getHeight();
+				
+				Random ran = new Random();
+				int ranX = x + 5 +ran.nextInt(w - 5);
+				int ranY = y + 5 +ran.nextInt(y - 5);
+				//Final thing that actually sets the location in the end for all of the pounts :D
+				s[i].setLocation(ranX, ranY);
+			}
+		}
+	}
+	
+	/*
+	 * Every time this method is called the sand particles are going to update
+	 * accordingly, move, slow down and check collision all depending
+	 * on their location;
+	 */
+	public static void onUpdate(int delta){
+		for(int i = 0; i < maxSand; i++){
+			if(s[i] != null){
+				s[i].setMovingToMouse(isPlayerMouseDown);
+				s[i].onUpdate();
+				int x = s[i].getX();
+				int y = s[i].getY();
+				//Checking collision
+				for(int r = 2; r < 100; r++){
+					if(WallList.wall[Level.currentLevel][r] != null){
+						int x2 = WallList.wall[Level.currentLevel][r].getX();
+						int y2 = WallList.wall[Level.currentLevel][r].getY();
+						int w = WallList.wall[Level.currentLevel][r].getWidth();
+						int h = WallList.wall[Level.currentLevel][r].getHeight();
+						if(x > x2 && x < x2 + w && y > y2 && y < y2 + h){
+							s[i] = null;
+						}
+					}
+				}
+			}
+		}
+	}
+}

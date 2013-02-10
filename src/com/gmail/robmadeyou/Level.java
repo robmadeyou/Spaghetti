@@ -14,7 +14,20 @@ public class Level {
 	 */
 	public static int dotsOnScreen = 20;
 	/*
+	 * The amount of grains of sand that are securely in the "safe zone" of the current level
+	 * hehe :D
+	 */
+	public static int dotsSecured = 0;
+	/*
 	 * Score is kept globally and will increase as the player progresses on with the game
 	 */
 	public static int score = 0;
+	
+	/*
+	 * Level score is kept though each level, then after level is over; it is added to the main score
+	 * and so on :D
+	 */
+	public static void Timer(){
+		
+	}
 }

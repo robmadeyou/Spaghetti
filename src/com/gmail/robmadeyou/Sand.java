@@ -20,6 +20,7 @@ public class Sand {
 	private double dX, dY;
 	private boolean isMovingToMouse;
 	private String color;
+	private boolean isInFinish;
 	public Sand(int x, int y, String color){
 		this.x = x;
 		this.y = y;
@@ -27,8 +28,14 @@ public class Sand {
 		this.dX = 0;
 		this.dY = 0;
 		this.isMovingToMouse = false;
+		this.isInFinish = false;
 	}
-	
+	public void setToFinish(boolean set){
+		this.isInFinish = set;
+	}
+	public boolean isInFinish(){
+		return isInFinish;
+	}
 	public void setLocation(int x, int y){
 		this.x = x;
 		this.y = y;
@@ -88,26 +95,45 @@ public class Sand {
 	}
 	public void onUpdate(){
 		draw();
-		if(isMovingToMouse){
-			double s = 3;
+		if(!isInFinish){
+			if(isMovingToMouse){
+				double s = 3;
 			
-			double toX = 0;
-			double toY = 0;
+				double toX = 0;
+				double toY = 0;
 			
-			toX = x -(Mouse.getX());
-			toY = y - (Display.getHeight() -Mouse.getY());
+				toX = x -(Mouse.getX());
+				toY = y - (Display.getHeight() -Mouse.getY());
 			
-			double tan = (float) Math.atan2(toX,toY);
+				double tan = (float) Math.atan2(toX,toY);
 			
-			dX = -s*Math.sin(tan);
-			dY = -s*Math.cos(tan);
+				dX = -s*Math.sin(tan);
+				dY = -s*Math.cos(tan);
 			
-			x += dX;
-			y += dY;
+				x += dX;
+				y += dY;
+			}else{
+				x += dX;
+				y += dY;
+			
+				if(dX > 0){
+					dX -= 0.06;
+				}
+				if(dY > 0){
+					dY -= 0.06;
+				}
+				if(dX < 0){
+					dX += 0.06;
+				}
+				if(dY < 0){
+					dY += 0.06;
+				}
+		
+			}
 		}else{
 			x += dX;
 			y += dY;
-			
+		
 			if(dX > 0){
 				dX -= 0.06;
 			}
@@ -120,7 +146,7 @@ public class Sand {
 			if(dY < 0){
 				dY += 0.06;
 			}
-		
+	
 		}
 	}
 }

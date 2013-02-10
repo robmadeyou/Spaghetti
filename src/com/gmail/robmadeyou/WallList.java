@@ -25,8 +25,10 @@ public class WallList {
 		 * THANKYOU!c
 		 */
 		
+		wall[0][1] = new Walls(500,300, 50,50, "blue");
 		wall[0][2] = new Walls(40, 40, 70, 60, "green");
 		wall[0][3] = new Walls(100, 69, 70, 60, "red");
+		wall[0][4] = new Walls(300, 50, 70, 60, "cyan");
 	}
 	public static void onUpdate(){
 		for(int i = 0; i < 100; i++){

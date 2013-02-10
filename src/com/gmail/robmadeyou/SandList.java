@@ -8,7 +8,7 @@ public class SandList {
 			super(x, y, color);
 		}
 	}
-	static int maxSand = 40;
+	static int maxSand = 20;
 	static Sand[] s = new Sand[maxSand];
 	static boolean isPlayerMouseDown = false;
 	
@@ -16,6 +16,7 @@ public class SandList {
 		for(int i = 0; i < maxSand; i++){
 			if(s[i] == null){
 				s[i] = p;
+				Level.dotsOnScreen++;
 				break;
 			}
 		}
@@ -58,14 +59,23 @@ public class SandList {
 				int x = s[i].getX();
 				int y = s[i].getY();
 				//Checking collision
-				for(int r = 2; r < 100; r++){
+				//This includes the finish block too
+				for(int r = 1; r < 100; r++){
 					if(WallList.wall[Level.currentLevel][r] != null){
 						int x2 = WallList.wall[Level.currentLevel][r].getX();
 						int y2 = WallList.wall[Level.currentLevel][r].getY();
 						int w = WallList.wall[Level.currentLevel][r].getWidth();
 						int h = WallList.wall[Level.currentLevel][r].getHeight();
-						if(x > x2 && x < x2 + w && y > y2 && y < y2 + h){
-							s[i] = null;
+						if(x >= x2 && x <= x2 + w && y >= y2 && y <= y2 + h){
+							if(r != 1){
+								s[i] = null;
+								Level.dotsOnScreen--;
+							}else{
+								if(!s[i].isInFinish()){
+								s[i].setToFinish(true);
+								Level.dotsSecured++;
+								}
+							}
 						}
 					}
 				}

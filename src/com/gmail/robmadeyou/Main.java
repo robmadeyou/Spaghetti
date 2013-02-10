@@ -59,9 +59,8 @@ public class Main {
 		
 		while(!Display.isCloseRequested()){
 			glClear(GL_COLOR_BUFFER_BIT);
-			Fonts.drawString("ABCDEFG" + Level.dotsSecured, (Display.getWidth() / 2) - 50,  40, 9);
 			WallList.loadAllLevels();
-			SandList.addMoreSand(new SandList.particles(500, 50, "cyan"));
+			SandList.addMoreSand(new SandList.particles(0, 50, "cyan"));
 			System.out.println("" + Level.dotsSecured);
 			onUpdate(getDelta());
 			Display.sync(60);
@@ -73,6 +72,7 @@ public class Main {
 		Player.onUpdate();
 		WallList.onUpdate();
 		SandList.onUpdate(delta);
+		Fonts.drawString("ABCDEFGHIJKLM" + Level.dotsSecured, 0,  200, 20);
 	}
 	
 	public static void main(String args[]){

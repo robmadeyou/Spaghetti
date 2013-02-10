@@ -80,7 +80,43 @@ public class Fonts {
 					
 					drawBox(x, y - 4 * size, 5, 1, size);
 					drawBox(x, y - 8 * size, 7, 1, size);
-					x+= 8 * size;
+					x += 8 * size;
+				}else if(c == 'g'){
+					drawBox(x, y - 1 * size, 1, 7, size);
+					
+					drawBox(x + 1 * size, y, 5, 1, size);
+					drawBox(x + 1 * size, y - 8 * size, 5, 1, size);
+					
+					drawBox(x + 6 * size, y - 1 * size, 1, 2, size);
+					drawBox(x + 6 * size, y - 7 * size, 1, 2, size);
+					
+					drawBox(x + 4 * size, y - 3 * size, 3, 1, size);
+					
+					x += 8 * size;
+				}else if(c == 'h'){
+					drawBox(x, y, 1, 9, size);
+					drawBox(x + 6 * size, y, 1, 9, size);
+					
+					drawBox(x, y - 4 * size, 6, 1, size);
+					x += 8 * size;
+				}else if(c == 'i'){
+					drawBox(x, y, 7, 1, size);
+					drawBox(x, y - 8 * size, 7, 1, size);
+					
+					drawBox(x + 3 * size, y - 1 * size, 1, 7, size);
+					x += 8 * size;
+				}else if(c == 'j'){
+					drawBox(x, y - 1 * size, 1, 2, size);
+					
+					drawBox(x + 1 * size, y , 4, 1, size);
+					
+					drawBox(x + 5 * size, y - 1 * size, 1, 8, size);
+					
+					x += 8 * size;
+				}else if(c =='k'){
+					drawBox(x, y, 1, 9, size);
+					
+					drawBox(x + 1 * size, y, 1, 9, size);
 				}
 			}
 		GL11.glBegin(GL11.GL_POINTS);

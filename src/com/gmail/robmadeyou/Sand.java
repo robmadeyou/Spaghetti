@@ -1,6 +1,6 @@
 package com.gmail.robmadeyou;
 
-
+import java.util.Random;
 import static org.lwjgl.opengl.GL11.GL_POINTS;
 
 import java.text.DecimalFormat;
@@ -10,13 +10,13 @@ import org.lwjgl.opengl.Display;
 
 import static org.lwjgl.opengl.GL11.glBegin;
 import static org.lwjgl.opengl.GL11.glEnd;
-import static org.lwjgl.opengl.GL11.glVertex2i;
+import static org.lwjgl.opengl.GL11.glVertex2d;
 import static org.lwjgl.opengl.GL11.glColor3f;
 
 
 public class Sand {
 	
-	private int x, y;
+	private double x, y;
 	private double dX, dY;
 	private boolean isMovingToMouse;
 	private String color;
@@ -42,10 +42,10 @@ public class Sand {
 	}
 	
 	public int getX(){
-		return x;
+		return (int)x;
 	}
 	public int getY(){
-		return y;
+		return (int)y;
 	}
 	public void setX(int x){
 		this.x = x;
@@ -89,7 +89,7 @@ public class Sand {
 		
 		glBegin(GL_POINTS);
 			glColor3f(r,g,b);
-			glVertex2i(x, y);
+			glVertex2d(x, y);
 		glEnd();
 			
 	}
@@ -97,7 +97,11 @@ public class Sand {
 		draw();
 		if(!isInFinish){
 			if(isMovingToMouse){
-				double s = 3;
+				//Random double that will fluctuate very slightly to
+				//make each grain of sand move at a different speed
+				
+				
+				double s = 2.8;
 			
 				double toX = 0;
 				double toY = 0;
@@ -107,46 +111,25 @@ public class Sand {
 			
 				double tan = (float) Math.atan2(toX,toY);
 			
-				dX = -s*Math.sin(tan);
-				dY = -s*Math.cos(tan);
+				dX = s*Math.sin(tan);
+				dY = s*Math.cos(tan);
 			
-				x += dX;
-				y += dY;
+				x -= dX;
+				y -= dY;
 			}else{
-				x += dX;
-				y += dY;
-			
-				if(dX > 0){
-					dX -= 0.06;
-				}
-				if(dY > 0){
-					dY -= 0.06;
-				}
-				if(dX < 0){
-					dX += 0.06;
-				}
-				if(dY < 0){
-					dY += 0.06;
-				}
+				x -= dX;
+				y -= dY;
+				
+				dX *= 0.9;
+				dY *= 0.9;
 		
 			}
 		}else{
-			x += dX;
-			y += dY;
-		
-			if(dX > 0){
-				dX -= 0.06;
-			}
-			if(dY > 0){
-				dY -= 0.06;
-			}
-			if(dX < 0){
-				dX += 0.06;
-			}
-			if(dY < 0){
-				dY += 0.06;
-			}
-	
+			x -= dX;
+			y -= dY;
+			
+			dX *= 0.7;
+			dY *= 0.7;
 		}
 	}
 }

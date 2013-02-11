@@ -72,7 +72,7 @@ public class Main {
 		Player.onUpdate();
 		WallList.onUpdate();
 		SandList.onUpdate(delta);
-		Fonts.drawString("ABCDEFGHIJKLM" + Level.dotsSecured, 0,  200, 20);
+		Fonts.drawString("ABCDEFGHIJKLMNOPQRSTUVWXYZ" + Level.dotsSecured, 0,  200, 4);
 	}
 	
 	public static void main(String args[]){

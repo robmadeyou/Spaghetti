@@ -36,16 +36,18 @@ public class Main {
         return delta;
     }
 	
+    public static boolean applet = false;
 	public Main(){
-	
-		try {
-			Display.setDisplayMode(new DisplayMode(1024,512));
-			Display.setTitle("Particles.. WOO!!");
-			Display.create();
-			Display.setResizable(false);
-		} catch (LWJGLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if(!applet){
+			try {
+				Display.setDisplayMode(new DisplayMode(1024,512));
+				Display.setTitle("Particles.. WOO!!");
+				Display.create();
+				Display.setResizable(false);
+			} catch (LWJGLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 		glEnable(GL_TEXTURE_2D);

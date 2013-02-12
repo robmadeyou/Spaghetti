@@ -58,12 +58,11 @@ public class Main {
 		glClearColor(0.0F, 0.0F, 0.0F, 0.0F);
 	    glEnable(GL_BLEND);
 	    glBlendFunc(GL_SRC_ALPHA , GL_ONE_MINUS_SRC_ALPHA);
-		
+	    WallList.loadAllLevels();
+	    Level.setUpLevel();
 		while(!Display.isCloseRequested()){
 			glClear(GL_COLOR_BUFFER_BIT);
-			WallList.loadAllLevels();
-			SandList.addMoreSand(new SandList.particles(0, 50, "cyan"));
-			System.out.println("" + Level.dotsSecured);
+			
 			onUpdate(getDelta());
 			Display.sync(60);
 			Display.update();
@@ -74,7 +73,7 @@ public class Main {
 		Player.onUpdate();
 		WallList.onUpdate();
 		SandList.onUpdate(delta);
-		Fonts.drawString("ABCDEFGHIJKLMNOPQRSTUVWXYZ" + Level.dotsSecured, 0,  200, 4);
+		Level.onLevelUpdate();
 	}
 	
 	public static void main(String args[]){

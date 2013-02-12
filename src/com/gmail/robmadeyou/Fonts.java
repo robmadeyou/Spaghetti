@@ -274,7 +274,12 @@ public class Fonts {
 					drawBox(x, y, 6, 1, size);
 					drawBox(x, y - 8 * size, 6, 1,size);
 					
+					x += 7 * size;
+				}else if(c == ' '){
 					x += 8 * size;
+				}else if(c == '.'){
+					drawBox(x, y, 1, 1, size);
+					x += 2 * size;
 				}
 			}
 		GL11.glBegin(GL11.GL_POINTS);

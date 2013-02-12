@@ -39,9 +39,20 @@ public class SandList {
 				
 				Random ran = new Random();
 				int ranX = x + 5 +ran.nextInt(w - 5);
-				int ranY = y + 5 +ran.nextInt(y - 5);
+				int ranY = y + 5 +ran.nextInt(h - 5);
 				//Final thing that actually sets the location in the end for all of the pounts :D
-				s[i].setLocation(ranX, ranY);
+				if(s[i] != null){
+					s[i].setLocation(ranX, ranY);
+				}
+			}
+		}
+	}
+	//This is silly o_O
+	public static void removeAllDots(){
+		for(int i = 0; i < maxSand; i++){
+			if(s[i] != null){
+				s[i] = null;
+				Level.dotsOnScreen = 0;
 			}
 		}
 	}

@@ -119,7 +119,11 @@ public class Sand {
 			}else{
 				x -= dX;
 				y -= dY;
-				
+				//What I do here is slow the pieces of sand to add a 
+				//gradual slowing down effect, like water would slow down
+				//I like it. Simply multiplying dX or dY by 0.9
+				//So this would decrease the speed at the same fraction
+				//every time
 				dX *= 0.9;
 				dY *= 0.9;
 		

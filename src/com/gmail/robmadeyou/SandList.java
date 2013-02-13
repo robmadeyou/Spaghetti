@@ -21,6 +21,27 @@ public class SandList {
 			}
 		}
 	}
+	public static void checkCollision(int n){
+		for(int i = 0; i < maxSand; i++){
+			if(s[i] != null){
+				int x1 = s[i].getX();
+				int y1 = s[i].getY();
+				
+				int x2 = s[n].getX();
+				int y2 = s[n].getY();
+				
+				if(s[i).getNumber() != s[n].getNumber(){
+					if(x1 == x2 && y1 == y2){
+						Random ran = new Random();
+						int ranX = 2 - ran.nextInt(4);
+						int ranY = 2 - ran.nextInt(2);
+						s[n].setX(s[n)
+					}
+				}
+				
+			}
+		}
+	}
 	/*
 	 * Used in harder difficulties where when new level starts; instead of removing all the dots
 	 * and then placing them back on the screen they are all instead moved to the new location

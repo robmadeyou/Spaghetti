@@ -31,11 +31,11 @@ public class Level {
 	public static void Timer(){
 		
 	}
-	public static void setUpLevel(){
-		if(currentLevel < 9){
-			currentLevel++;
-		}
+	public static void setUpLevel(int level){
+		currentLevel = level;
 		dotsSecured = -1;
+		WallList.removeAllOpWalls();
+		WallList.setUpAllOpBoxes();
 		if(!onHard){
 			SandList.removeAllDots();
 			for(int i = 0; i < SandList.maxSand; i++){
@@ -48,8 +48,8 @@ public class Level {
 		dotsSecured = 0;
 	}
 	public static void onLevelUpdate(){
-		if(dotsOnScreen == dotsSecured){
-			setUpLevel();
+		if(dotsOnScreen == dotsSecured && dotsOnScreen > 0){
+			setUpLevel(currentLevel + 1);
 		}
 	}
 }

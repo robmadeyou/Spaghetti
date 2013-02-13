@@ -7,6 +7,10 @@ import static org.lwjgl.opengl.GL11.glEnd;
 import static org.lwjgl.opengl.GL11.glVertex2i;
 import static org.lwjgl.opengl.GL11.GL_LINES;
 
+import java.util.Random;
+
+import com.gmail.robmadeyou.WallList.WallsOp;
+
 public class Wall {
 	
 	
@@ -34,7 +38,46 @@ public class Wall {
 	public void onUpdate(){
 		draw();
 	}
-	
+	public void setUpSmallBoxes(){
+		glColor4f(1,1,1, 1F);
+		if(!WallList.haveWallsOpBeenSetUp){
+			int totalWidth = w;
+			int totalHeight = h;
+			int widthLeft = totalWidth;
+			int widthUsed = x + 0;
+			int boxesToFitHoriz = (int) ((totalWidth / 20) + 0.5);
+			int boxesToFitVert = (int) ((totalHeight / 20) + 0.5);
+			System.out.println(boxesToFitHoriz + "   " + boxesToFitVert);
+			int heightUsed = y + 0;
+			for(int i = 0; i < boxesToFitVert; i++){//omfg so fucking tired o_O
+				for(int q = 0; q < boxesToFitHoriz; q++){//It is so tired and I can't function properly :/
+					int eX1 = WallList.wall[Level.currentLevel][0].getX() -1;
+					int eY1 = WallList.wall[Level.currentLevel][0].getY() -1;
+					int eW1 = WallList.wall[Level.currentLevel][0].getWidth();
+					int eH1 = WallList.wall[Level.currentLevel][0].getHeight();
+					
+					int eX2 = WallList.wall[Level.currentLevel][1].getX() -1;
+					int eY2 = WallList.wall[Level.currentLevel][1].getY() -1;
+					int eW2 = WallList.wall[Level.currentLevel][1].getWidth();
+					int eH2 = WallList.wall[Level.currentLevel][1].getHeight();
+					//Checks if this box is within the bounds of the START box
+					boolean one = (widthUsed > eX1 && widthUsed < eX1 + eW1 && heightUsed > 
+									eY1 && heightUsed < eY1 + eH1);
+					//Checks if this box is within the bounds of the END box
+					boolean two = (widthUsed > eX2 && widthUsed < eX2 + eW2 && heightUsed > 
+							eY2 && heightUsed < eY2 + eH2);
+					if(!one && !two){
+						WallList.addNewOpBoxes(new WallList.WallsOp(widthUsed, heightUsed, 20, 20, 0.5F));//Please call me a really silly word :)
+					}
+					widthUsed += 20;
+					
+				}
+				widthUsed = x + 0;
+				heightUsed += 20;
+			}
+			
+		}
+	}
 	public void draw(){
 		
 		float r = 1,g = 1,b = 1;
@@ -67,7 +110,11 @@ public class Wall {
 			glVertex2i(x, y + h);
 			glColor4f(1,1,1, 1F);
 		glEnd();
-		
+		/*
+		 * And here I'm going to complete the todo :D
+		 * 
+		 */
+		//Moved it to a new method! Save some power! :D
 		/* Going to draw a box by just using lines around the wall box, this should give it a FEZ like texture :3
 		 * 1.....2
 		 * .     .

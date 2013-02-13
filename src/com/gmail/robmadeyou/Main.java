@@ -12,6 +12,7 @@ import static org.lwjgl.opengl.GL11.GL_PROJECTION;
 import static org.lwjgl.opengl.GL11.GL_SRC_ALPHA;
 import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
 import static org.lwjgl.opengl.GL11.glBlendFunc;
+import static org.lwjgl.opengl.GL11.glColor3f;
 import static org.lwjgl.opengl.GL11.glClear;
 import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
 import static org.lwjgl.opengl.GL11.glClearColor;
@@ -40,7 +41,7 @@ public class Main {
 	public Main(){
 		if(!applet){
 			try {
-				Display.setDisplayMode(new DisplayMode(1024,512));
+				Display.setDisplayMode(new DisplayMode(1020,500));
 				Display.setTitle("Particles.. WOO!!");
 				Display.create();
 				Display.setResizable(false);
@@ -53,13 +54,13 @@ public class Main {
 		glEnable(GL_TEXTURE_2D);
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
-		glOrtho( 0, 1024, 512, 0, 1, -1);
+		glOrtho( 0, 1020, 500, 0, 1, -1);
 		glMatrixMode(GL_MODELVIEW);
 		glClearColor(0.0F, 0.0F, 0.0F, 0.0F);
 	    glEnable(GL_BLEND);
 	    glBlendFunc(GL_SRC_ALPHA , GL_ONE_MINUS_SRC_ALPHA);
 	    WallList.loadAllLevels();
-	    Level.setUpLevel();
+	    Level.setUpLevel(0);
 		while(!Display.isCloseRequested()){
 			glClear(GL_COLOR_BUFFER_BIT);
 			
@@ -74,6 +75,9 @@ public class Main {
 		WallList.onUpdate();
 		SandList.onUpdate(delta);
 		Level.onLevelUpdate();
+		glColor3f(1,0,0);
+	    Fonts.drawString("Score: " + Level.dotsSecured, 0, 0, 4);
+	    glColor3f(1,1,1);
 	}
 	
 	public static void main(String args[]){

@@ -38,8 +38,8 @@ public class SandList {
 				int h = WallList.wall[levelNum][0].getHeight();
 				
 				Random ran = new Random();
-				int ranX = x + 5 +ran.nextInt(w - 5);
-				int ranY = y + 5 +ran.nextInt(h - 5);
+				int ranX = x +ran.nextInt(w - 10);
+				int ranY = y +ran.nextInt(h - 10);
 				//Final thing that actually sets the location in the end for all of the pounts :D
 				if(s[i] != null){
 					s[i].setLocation(ranX, ranY);

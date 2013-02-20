@@ -280,6 +280,8 @@ public class Fonts {
 				}else if(c == '.'){
 					drawBox(x, y, 1, 1, size);
 					x += 2 * size;
+				}else if(c == '/'){
+					x += 4 * size;
 				}
 			}
 		GL11.glBegin(GL11.GL_POINTS);

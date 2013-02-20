@@ -5,12 +5,23 @@ import static org.lwjgl.opengl.GL11.GL_QUADS;
 import static org.lwjgl.opengl.GL11.glBegin;
 import static org.lwjgl.opengl.GL11.glColor4f;
 import static org.lwjgl.opengl.GL11.glEnd;
+import static org.lwjgl.opengl.GL11.glTexCoord2f;
+import static org.lwjgl.opengl.GL11.glVertex2f;
 import static org.lwjgl.opengl.GL11.glVertex2i;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.Random;
 
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
+import org.newdawn.slick.opengl.Texture;
+import org.newdawn.slick.opengl.TextureLoader;
+import org.newdawn.slick.util.ResourceLoader;
 
 public class WallOp {
 	
@@ -72,7 +83,6 @@ public class WallOp {
 	}
 	public void resetColor(){
 		//Reseting to original color after being touched
-		if(r != oR){
 			//Red
 			if(r > oR && r <= 1F && r >= 0F){
 				r -= speed;
@@ -90,8 +100,8 @@ public class WallOp {
 				b -= speed;
 			}else if(b < oB && b <= 1F && b >= 0F){
 				b += speed;
+				
 			}
-		}
 	}
 	public void dim(){
 		op -= speed;
@@ -117,13 +127,39 @@ public class WallOp {
 	public void setOp(float op){
 		this.op = op;
 	}
+	
+	public static Texture tex;
+	public static boolean texLoad =false;
 	public void draw(){
+		if(!texLoad){
+		
+			InputStream is = WallOp.class.getResourceAsStream("res/marker.png");
+			System.out.println(is);
+			try {
+				tex = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("res/marker.png"));
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		texLoad = true;
+		}
+		if(tex != null){
+		tex.bind();
+		}
 		glBegin(GL_QUADS);
 			glColor4f(r,g,b,op);
-			glVertex2i(x, y);
-			glVertex2i(x + w, y);
-			glVertex2i(x + w, y + h);
-			glVertex2i(x, y + h);
+			glTexCoord2f(0, 0);
+			glVertex2f(x , y);
+			glTexCoord2f(1, 0);
+			glVertex2f(x + w, y);
+			glTexCoord2f(1, 1);
+			glVertex2f(x + w, y + h);
+			glTexCoord2f(0, 1);
+			glVertex2f(x , y + h);
 			glColor4f(0,0,0, op);
 		glEnd();
 		/* Going to draw a box by just using lines around the wall box, this should give it a FEZ like texture :3

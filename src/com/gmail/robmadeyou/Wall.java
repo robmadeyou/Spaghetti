@@ -7,7 +7,17 @@ import static org.lwjgl.opengl.GL11.glEnd;
 import static org.lwjgl.opengl.GL11.glVertex2i;
 import static org.lwjgl.opengl.GL11.GL_LINES;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Random;
+
+import org.newdawn.slick.opengl.Texture;
+import org.newdawn.slick.opengl.TextureLoader;
 
 import com.gmail.robmadeyou.WallList.WallsOp;
 
@@ -78,6 +88,7 @@ public class Wall {
 			
 		}
 	}
+	public static Texture tex;
 	public void draw(){
 		
 		float r = 1,g = 1,b = 1;
@@ -102,6 +113,7 @@ public class Wall {
 		//should be randomly generated and act as texture
 		//to distinguish them I'll probably add opacity to each and every quad then
 		//so the color is kept the same, just the shade is turned down (as there will be a dark background)
+		
 		glBegin(GL_QUADS);
 			glColor4f(r,g,b,1F);
 			glVertex2i(x, y);

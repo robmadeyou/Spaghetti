@@ -1,5 +1,7 @@
 package com.gmail.robmadeyou;
 
+import java.io.File;
+
 import org.lwjgl.LWJGLException;
 import org.lwjgl.Sys;
 import org.lwjgl.opengl.Display;
@@ -49,8 +51,7 @@ public class Main {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}
-		
+		} 
 		glEnable(GL_TEXTURE_2D);
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
@@ -61,22 +62,24 @@ public class Main {
 	    glBlendFunc(GL_SRC_ALPHA , GL_ONE_MINUS_SRC_ALPHA);
 	    WallList.loadAllLevels();
 	    Level.setUpLevel(0);
+	    
 		while(!Display.isCloseRequested()){
 			glClear(GL_COLOR_BUFFER_BIT);
-			
-			onUpdate(getDelta());
+			String path = Main.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+			onUpdate(getDelta(), path);
 			Display.sync(60);
 			Display.update();
 		}
 		
 	}
-	public static void onUpdate(int delta){
+	public static void onUpdate(int delta, String path){
 		Player.onUpdate();
 		WallList.onUpdate();
 		SandList.onUpdate(delta);
 		Level.onLevelUpdate();
 		glColor3f(1,0,0);
-	    Fonts.drawString("Score: " + Level.dotsSecured, 0, 0, 4);
+		
+	    Fonts.drawString("Score: " + path, 0, 50, 1);
 	    glColor3f(1,1,1);
 	}
 	

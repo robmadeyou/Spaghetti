@@ -21,7 +21,9 @@ public class Sand {
 	private boolean isMovingToMouse;
 	private String color;
 	private boolean isInFinish;
-	public Sand(int x, int y, String color){
+	private boolean isMain = false;
+	private Texture tex;
+	public Sand(int x, int y, String color, boolean isMain){
 		this.x = x;
 		this.y = y;
 		this.color = color;
@@ -29,6 +31,7 @@ public class Sand {
 		this.dY = 0;
 		this.isMovingToMouse = false;
 		this.isInFinish = false;
+		this.isMain = isMain;
 	}
 	public void setToFinish(boolean set){
 		this.isInFinish = set;
@@ -87,9 +90,11 @@ public class Sand {
 			b = 1;
 		}
 		
-		glBegin(GL_POINTS);
-			glColor3f(r,g,b);
+		glBegin(GL_QUADS);
 			glVertex2d(x, y);
+			glVertex2d(x + 1, y);
+			glVertex2d(x + 1, y + 1);
+			glVertex2d(x , y + 1);
 		glEnd();
 			
 	}
